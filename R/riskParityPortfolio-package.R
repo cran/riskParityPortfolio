@@ -1,7 +1,7 @@
-#' riskParityPortfolio: Design of Risk Parity Portfolios
+#' Package riskParityPortfolio
 #'
-#' Fast design of risk-parity portfolios for financial investment.
-#' The goal of the risk-parity portfolio formulation is to equalize or distribute
+#' Fast design of risk parity portfolios for financial investment.
+#' The goal of the risk parity portfolio formulation is to equalize or distribute
 #' the risk contributions of the different assets, which is missing if we simply
 #' consider the overall volatility of the portfolio as in the mean-variance
 #' Markowitz portfolio. In addition to the vanilla formulation, where the risk
@@ -16,23 +16,27 @@
 #'
 #' @section Help:
 #' For a quick help see the README file:
-#' \href{https://htmlpreview.github.io/?https://github.com/dppalomar/riskParityPortfolio/blob/master/README.html}{GitHub-README}.
+#' \href{https://cran.r-project.org/package=riskParityPortfolio/readme/README.html}{CRAN-README} and
+#' \href{https://raw.githack.com/dppalomar/riskParityPortfolio/master/README.html}{GitHub-README}.
 #'
 #' For more details see the vignette:
-#' \href{https://htmlpreview.github.io/?https://github.com/dppalomar/riskParityPortfolio/blob/master/vignettes/RiskParityPortfolio-html-vignette.html}{GitHub-html-vignette}.
+#' \href{https://cran.r-project.org/package=riskParityPortfolio/vignettes/RiskParityPortfolio.html}{CRAN-html-vignette},
+#' \href{https://cran.r-project.org/package=riskParityPortfolio/vignettes/RiskParityPortfolio-pdf.pdf}{CRAN-pdf-vignette},
+#' \href{https://raw.githack.com/dppalomar/riskParityPortfolio/master/vignettes/RiskParityPortfolio.html}{GitHub-html-vignette}, and
+#' \href{https://docs.google.com/viewer?url=https://github.com/dppalomar/riskParityPortfolio/raw/master/vignettes/RiskParityPortfolio-pdf.pdf}{GitHub-pdf-vignette}.
 #'
 #' @author Ze Vinicius and Daniel P. Palomar
 #'
 #' @references
-#' Y. Feng, and D. P. Palomar, "SCRIP: Successive Convex Optimization Methods
-#' for Risk Parity Portfolio Design," \emph{IEEE Trans. on Signal Processing},
-#' vol. 63, no. 19, pp. 5285-5300, Oct. 2015. (https://doi.org/10.1109/TSP.2015.2452219)
+#' Y. Feng, and D. P. Palomar (2015). SCRIP: Successive Convex Optimization Methods
+#' for Risk Parity Portfolio Design. \emph{IEEE Trans. on Signal Processing},
+#' vol. 63, no. 19, pp. 5285-5300. <https://doi.org/10.1109/TSP.2015.2452219>
 #'
-#' F. Spinu, "An Algorithm for Computing Risk Parity Weights," 2013.
-#' Available at SSRN: https://ssrn.com/abstract=2297383 or http://dx.doi.org/10.2139/ssrn.2297383
-#' 
-#' T. Griveau-Billion, J. Richard, and T. Roncalli, "A fast algorithm for computing High-dimensional risk parity portfolios," 2013.
-#' ArXiv preprint: https://arxiv.org/pdf/1311.4057.pdf
+#' F. Spinu (2013). An Algorithm for Computing Risk Parity Weights.
+#' <https://dx.doi.org/10.2139/ssrn.2297383>
+#'
+#' T. Griveau-Billion, J. Richard, and T. Roncalli (2013). A fast algorithm for computing High-dimensional risk parity portfolios.
+#' <https://arxiv.org/pdf/1311.4057.pdf>
 #'
 #' @importFrom Rcpp sourceCpp
 #' @useDynLib riskParityPortfolio

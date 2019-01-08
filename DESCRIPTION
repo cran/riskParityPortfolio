@@ -1,8 +1,8 @@
 Package: riskParityPortfolio
 Title: Design of Risk Parity Portfolios
-Version: 0.1.0
-Description: Fast design of risk-parity portfolios for financial investment.
-    The goal of the risk-parity portfolio formulation is to equalize or distribute
+Version: 0.1.1
+Description: Fast design of risk parity portfolios for financial investment.
+    The goal of the risk parity portfolio formulation is to equalize or distribute
     the risk contributions of the different assets, which is missing if we simply
     consider the overall volatility of the portfolio as in the mean-variance
     Markowitz portfolio. In addition to the vanilla formulation, where the risk
@@ -12,15 +12,13 @@ Description: Fast design of risk-parity portfolios for financial investment.
     objectives like the expected return and overall variance. See vignette for
     a detailed documentation and comparison, with several illustrative examples.
     The package is based on the papers:
-    Y. Feng, and D. P. Palomar, "SCRIP: Successive Convex Optimization Methods
-    for Risk Parity Portfolio Design," IEEE Trans. on Signal Processing, vol. 63,
-    no. 19, pp. 5285-5300, Oct. 2015. <doi:10.1109/TSP.2015.2452219>.
-    F. Spinu, "An Algorithm for Computing Risk Parity Weights," 2013.
-    Available at SSRN: <https://ssrn.com/abstract=2297383>
-    or <doi:10.2139/ssrn.2297383>.
-    T. Griveau-Billion, J. Richard, and T. Roncalli, "A fast algorithm for computing 
-    High-dimensional risk parity portfolios," 2013.
-    ArXiv preprint: <arXiv:1311.4057>.
+    Y. Feng, and D. P. Palomar (2015). SCRIP: Successive Convex Optimization Methods
+    for Risk Parity Portfolio Design. IEEE Trans. on Signal Processing, vol. 63,
+    no. 19, pp. 5285-5300. <doi:10.1109/TSP.2015.2452219>.
+    F. Spinu (2013), An Algorithm for Computing Risk Parity Weights.
+    <doi:10.2139/ssrn.2297383>.
+    T. Griveau-Billion, J. Richard, and T. Roncalli (2013). A fast algorithm for computing 
+    High-dimensional risk parity portfolios. <arXiv:1311.4057>.
 Authors@R: c(
   person("Ze", "Vinicius", role = "aut", email = "jvmirca@gmail.com"),
   person(c("Daniel", "P."), "Palomar", role = c("cre", "aut"), email = "daniel.p.palomar@gmail.com")
@@ -36,17 +34,14 @@ License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
 LinkingTo: Rcpp, RcppEigen
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Imports: alabama, nloptr, quadprog, Rcpp
-Suggests: bookdown, cccp, FinCovRegularization, knitr, microbenchmark,
-        numDeriv, patrick, prettydoc, RiskPortfolios, rmarkdown, R.rsp,
-        sparseIndexTracking, testthat, xts
-VignetteBuilder: bookdown, cccp, FinCovRegularization, knitr,
-        microbenchmark, prettydoc, RiskPortfolios, rmarkdown, R.rsp,
-        sparseIndexTracking, xts
+Suggests: bookdown, knitr, numDeriv, prettydoc, rmarkdown, R.rsp,
+        testthat
+VignetteBuilder: bookdown, knitr, prettydoc, rmarkdown, R.rsp
 NeedsCompilation: yes
-Packaged: 2018-12-16 01:00:15 UTC; palomar
+Packaged: 2019-01-08 00:43:10 UTC; palomar
 Author: Ze Vinicius [aut],
   Daniel P. Palomar [cre, aut]
 Repository: CRAN
-Date/Publication: 2018-12-25 22:20:04 UTC
+Date/Publication: 2019-01-08 08:20:03 UTC

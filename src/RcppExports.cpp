@@ -34,6 +34,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// active_risk_parity_portfolio_ccd
+Eigen::VectorXd active_risk_parity_portfolio_ccd(const Eigen::MatrixXd& Sigma, const Eigen::VectorXd& b, const Eigen::VectorXd& mu, const double c, const double r, const double tol, const unsigned int maxiter);
+RcppExport SEXP _riskParityPortfolio_active_risk_parity_portfolio_ccd(SEXP SigmaSEXP, SEXP bSEXP, SEXP muSEXP, SEXP cSEXP, SEXP rSEXP, SEXP tolSEXP, SEXP maxiterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< const Eigen::VectorXd& >::type b(bSEXP);
+    Rcpp::traits::input_parameter< const Eigen::VectorXd& >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< const double >::type c(cSEXP);
+    Rcpp::traits::input_parameter< const double >::type r(rSEXP);
+    Rcpp::traits::input_parameter< const double >::type tol(tolSEXP);
+    Rcpp::traits::input_parameter< const unsigned int >::type maxiter(maxiterSEXP);
+    rcpp_result_gen = Rcpp::wrap(active_risk_parity_portfolio_ccd(Sigma, b, mu, c, r, tol, maxiter));
+    return rcpp_result_gen;
+END_RCPP
+}
 // risk_parity_portfolio_nn
 Eigen::VectorXd risk_parity_portfolio_nn(const Eigen::MatrixXd& Sigma, const Eigen::VectorXd& b, const double tol, const unsigned int maxiter);
 RcppExport SEXP _riskParityPortfolio_risk_parity_portfolio_nn(SEXP SigmaSEXP, SEXP bSEXP, SEXP tolSEXP, SEXP maxiterSEXP) {
@@ -48,11 +65,40 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// obj_function_spinu
+double obj_function_spinu(const Eigen::MatrixXd& Sigma, const Eigen::VectorXd& x, const Eigen::VectorXd& b);
+RcppExport SEXP _riskParityPortfolio_obj_function_spinu(SEXP SigmaSEXP, SEXP xSEXP, SEXP bSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< const Eigen::VectorXd& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Eigen::VectorXd& >::type b(bSEXP);
+    rcpp_result_gen = Rcpp::wrap(obj_function_spinu(Sigma, x, b));
+    return rcpp_result_gen;
+END_RCPP
+}
+// obj_function_roncalli
+double obj_function_roncalli(const Eigen::MatrixXd& Sigma, const Eigen::VectorXd& x, const Eigen::VectorXd& b);
+RcppExport SEXP _riskParityPortfolio_obj_function_roncalli(SEXP SigmaSEXP, SEXP xSEXP, SEXP bSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< const Eigen::VectorXd& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Eigen::VectorXd& >::type b(bSEXP);
+    rcpp_result_gen = Rcpp::wrap(obj_function_roncalli(Sigma, x, b));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_riskParityPortfolio_risk_parity_portfolio_ccd_spinu", (DL_FUNC) &_riskParityPortfolio_risk_parity_portfolio_ccd_spinu, 4},
     {"_riskParityPortfolio_risk_parity_portfolio_ccd_roncalli", (DL_FUNC) &_riskParityPortfolio_risk_parity_portfolio_ccd_roncalli, 4},
+    {"_riskParityPortfolio_active_risk_parity_portfolio_ccd", (DL_FUNC) &_riskParityPortfolio_active_risk_parity_portfolio_ccd, 7},
     {"_riskParityPortfolio_risk_parity_portfolio_nn", (DL_FUNC) &_riskParityPortfolio_risk_parity_portfolio_nn, 4},
+    {"_riskParityPortfolio_obj_function_spinu", (DL_FUNC) &_riskParityPortfolio_obj_function_spinu, 3},
+    {"_riskParityPortfolio_obj_function_roncalli", (DL_FUNC) &_riskParityPortfolio_obj_function_roncalli, 3},
     {NULL, NULL, 0}
 };
 
