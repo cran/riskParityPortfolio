@@ -1,6 +1,7 @@
 Package: riskParityPortfolio
 Title: Design of Risk Parity Portfolios
-Version: 0.1.1
+Version: 0.1.2
+Date: 2019-06-01
 Description: Fast design of risk parity portfolios for financial investment.
     The goal of the risk parity portfolio formulation is to equalize or distribute
     the risk contributions of the different assets, which is missing if we simply
@@ -38,10 +39,10 @@ RoxygenNote: 6.1.1
 Imports: alabama, nloptr, quadprog, Rcpp
 Suggests: bookdown, knitr, numDeriv, prettydoc, rmarkdown, R.rsp,
         testthat
-VignetteBuilder: bookdown, knitr, prettydoc, rmarkdown, R.rsp
+VignetteBuilder: knitr, rmarkdown, R.rsp
 NeedsCompilation: yes
-Packaged: 2019-01-08 00:43:10 UTC; palomar
+Packaged: 2019-06-01 00:30:09 UTC; palomar
 Author: Ze Vinicius [aut],
   Daniel P. Palomar [cre, aut]
 Repository: CRAN
-Date/Publication: 2019-01-08 08:20:03 UTC
+Date/Publication: 2019-06-01 04:30:03 UTC

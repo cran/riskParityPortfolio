@@ -136,9 +136,9 @@ riskParityPortfolioSCA <- function(Sigma, b = rep(1/nrow(Sigma), nrow(Sigma)),
       else fun_next <- fun_next + lmd_var * (t(w_next) %*% Sigma %*% w_next)
     fun_seq <- c(fun_seq, fun_next)
     # check convergence on parameters and objective function
-    werr <- sum(abs(w_next - wk)) / max(1, sum(abs(wk)))
-    ferr <- abs(fun_next - fun_k) / max(1, abs(fun_k))
-    if (k > 1 && (werr < wtol && ferr < ftol)) break
+    has_w_converged <- all((abs(w_next - wk) <= .5 * wtol * (abs(wk) + abs(w_next))))
+    has_fun_converged <- abs(fun_next - fun_k) <= .5 * ftol * (abs(fun_k) + abs(fun_next))
+    if (k > 1 && (has_w_converged && has_fun_converged)) break
     # update variables
     wk <- w_next
     fun_k <- fun_next
@@ -408,7 +408,7 @@ projectBudgetLineAndBox <- function(w0, w_lb, w_ub) {
 #' @details By default, the problem considered is the vanilla risk parity portfolio:
 #' \code{w >= 0, sum(w) = 1}, with no expected return term, and no variance term. In this case,
 #' the problem formulation is convex and the optimal solution is guaranteed to be achieved with
-#' a perfect risk concentration, i.e., \code{R(w) = 0}. By default, we use the formulation by 
+#' a perfect risk concentration, i.e., \code{R(w) = 0}. By default, we use the formulation by
 #' Spinu (2013) (\code{method_init = "cyclical-spinu"}), but the user can also select the formulation
 #' by Roncalli et al. (2013) (\code{method_init = "cyclical-roncalli"}).
 #'
@@ -427,7 +427,7 @@ projectBudgetLineAndBox <- function(w0, w_lb, w_ub) {
 #' \item{\code{formulation = "rc-over-sd vs b-times-sd":} }{\code{sum_{i} (r_i/sqrt(r) - b_i*sqrt(r))^2}}
 #' \item{\code{formulation = "rc-over-b vs theta":} }{\code{sum_{i} (r_i/b_i - theta)^2}}
 #' \item{\code{formulation = "rc-over-var":} }{\code{sum_{i} (r_i/r)^2}}}
-#' where \code{r_i = w_i*(Sigma\%*\%w)_i} is the risk contribution and 
+#' where \code{r_i = w_i*(Sigma\%*\%w)_i} is the risk contribution and
 #' \code{r = t(w)\%*\%Sigma\%*\%w} is the overall risk (i.e., variance).
 #'
 #' For more details, please check the vignette.
@@ -536,6 +536,8 @@ riskParityPortfolio <- function(Sigma, b = NULL, mu = NULL,
                                 gamma = .9, zeta = 1e-7, tau = NULL,
                                 maxiter = 50, ftol = 1e-8, wtol = 1e-6,
                                 use_gradient = TRUE) {
+  # stocks names
+  stocks_names <- colnames(Sigma)
   # default values
   N <- nrow(Sigma)
   if (is.null(b)) b <- rep(1/N, N)
@@ -624,5 +626,7 @@ riskParityPortfolio <- function(Sigma, b = NULL, mu = NULL,
            stop("method ", method, " is not included.")
     )
   }
+  names(portfolio$w) <- stocks_names
+  names(portfolio$risk_contribution) <- stocks_names
   return(portfolio)
 }
