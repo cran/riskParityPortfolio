@@ -2,45 +2,53 @@
 % Please edit documentation in R/riskParityPortfolio.R
 \name{riskParityPortfolio}
 \alias{riskParityPortfolio}
-\title{Design of Risk Parity Portfolios}
+\title{Design of risk parity portfolios}
 \usage{
-riskParityPortfolio(Sigma, b = NULL, mu = NULL, lmd_mu = 1e-04,
-  lmd_var = 0, w_lb = 0, w_ub = 1,
-  method_init = c("cyclical-spinu", "cyclical-roncalli", "newton"),
-  method = c("sca", "alabama", "slsqp"), formulation = NULL,
-  w0 = NULL, theta0 = NULL, gamma = 0.9, zeta = 1e-07,
-  tau = NULL, maxiter = 50, ftol = 1e-08, wtol = 1e-06,
-  use_gradient = TRUE)
+riskParityPortfolio(Sigma, b = NULL, mu = NULL, lmd_mu = 0,
+  lmd_var = 0, w_lb = 0, w_ub = 1, Cmat = NULL, cvec = NULL,
+  Dmat = NULL, dvec = NULL, method_init = c("cyclical-spinu",
+  "cyclical-roncalli", "newton"), method = c("sca", "alabama", "slsqp"),
+  formulation = NULL, w0 = NULL, theta0 = NULL, gamma = 0.9,
+  zeta = 1e-07, tau = NULL, maxiter = 1000, ftol = 1e-08,
+  wtol = 5e-07, use_gradient = TRUE, use_qp_solver = TRUE)
 }
 \arguments{
-\item{Sigma}{covariance or correlation matrix (this is the only mandatory argument)}
+\item{Sigma}{Covariance or correlation matrix (this is the only mandatory argument).}
 
-\item{b}{budget vector, i.e., the risk budgeting targets. The default is the
+\item{b}{Budget vector, i.e., the risk budgeting targets. The default is the
 uniform 1/N vector.}
 
-\item{mu}{vector of expected returns (only needed if the expected return term
-is desired in the objective)}
+\item{mu}{Vector of expected returns (only needed if the expected return term
+is desired in the objective).}
 
-\item{lmd_mu}{scalar weight to control the importance of the expected return term}
+\item{lmd_mu}{Scalar weight to control the importance of the expected return term.}
 
-\item{lmd_var}{scalar weight to control the importance of the variance term
-(only currently available for the SCA method)}
+\item{lmd_var}{Scalar weight to control the importance of the variance term
+(only currently available for the SCA method).}
 
-\item{w_lb}{lower bound (either a vector or a scalar) on the value of each
-portfolio weight (only currently available for the SCA method)}
+\item{w_lb}{Lower bound (either a vector or a scalar) on the value of each
+portfolio weight.}
 
-\item{w_ub}{upper bound (either a vector or a scalar) on the value of each
-portfolio weight (only currently available for the SCA method)}
+\item{w_ub}{Upper bound (either a vector or a scalar) on the value of each
+portfolio weight.}
 
-\item{method_init}{method to compute the vanilla solution. In case of
+\item{Cmat}{Equality constraints matrix.}
+
+\item{cvec}{Equality constraints vector.}
+
+\item{Dmat}{Inequality constraints matrix.}
+
+\item{dvec}{Inequality constraints vector.}
+
+\item{method_init}{Method to compute the vanilla solution. In case of
 additional constraints or objective terms, this solution is used as
 the initial point for the subsequent method. The default is
 \code{"cyclical-spinu"}. See details below.}
 
-\item{method}{method to solve the non-vanilla formulation. The default is \code{"sca"}.
-See details below.}
+\item{method}{Method to solve the non-vanilla formulation. The default is \code{"sca"}.
+See details below. (DEPRECATED)}
 
-\item{formulation}{string indicating the risk concentration formulation to be used.
+\item{formulation}{String indicating the risk concentration formulation to be used.
 It must be one of: "diag", "rc-double-index",
 "rc-over-b-double-index", "rc-over-var vs b",
 "rc-over-var", "rc-over-sd vs b-times-sd",
@@ -52,44 +60,47 @@ vanilla risk parity portfolio will be returned. If formulation is
 "diag" then the analytical solution of the risk parity optimization for
 for a diagonal covariance matrix will be returned. See details below.}
 
-\item{w0}{initial value for the portfolio weights. Default is a convex
+\item{w0}{Initial value for the portfolio weights. Default is a convex
 combination of the risk parity portfolio, the (uncorrelated) minimum variance
 portfolio, and the maximum return portfolio.}
 
-\item{theta0}{initial value for theta (in case formulation uses theta). If not provided,
+\item{theta0}{Initial value for theta (in case formulation uses theta). If not provided,
 the optimum solution for a fixed vector of portfolio weights will be used.}
 
-\item{gamma}{learning rate for the SCA method}
+\item{gamma}{Learning rate for the SCA method.}
 
-\item{zeta}{factor used to decrease the learning rate at each iteration for the SCA method}
+\item{zeta}{Factor used to decrease the learning rate at each iteration for the SCA method.}
 
-\item{tau}{regularization factor}
+\item{tau}{Regularization factor.}
 
-\item{maxiter}{maximum number of iterations for the SCA loop}
+\item{maxiter}{Maximum number of iterations for the SCA loop.}
 
-\item{ftol}{convergence tolerance on the objective function}
+\item{ftol}{Convergence tolerance on the objective function.}
 
-\item{wtol}{convergence tolerance on the values of the portfolio weights}
+\item{wtol}{Convergence tolerance on the values of the portfolio weights.}
 
-\item{use_gradient}{this parameter is meaningful only if method is either
+\item{use_gradient}{This parameter is meaningful only if method is either
 \code{"alabama"} or \code{"slsqp"}. If \code{TRUE} (default value), analytical gradients of the
 objective function will be used (strongly recommended to achieve faster results).}
+
+\item{use_qp_solver}{Whether or not to use the general QP solver from
+quadprog to solve each iteration of the SCA algorithm. Default is TRUE.}
 }
 \value{
 A list containing possibly the following elements:
-\item{\code{w}}{optimal portfolio vector}
-\item{\code{risk_contribution}}{the risk contribution of every asset}
-\item{\code{theta}}{the optimal value for theta (in case that it is part of
-                    the chosen formulation)}
-\item{\code{obj_fun}}{the sequence of values of the objective function at
-                      each iteration}
-\item{\code{risk_parity}}{the risk concentration term of the portfolio \code{R(w)}}
-\item{\code{mean_return}}{the expected return term of the portoflio \code{t(w)\%*\%mu},
-                          if the term is included in the optimization}
-\item{\code{variance}}{the variance term of the portfolio \code{t(w)\%*\%Sigma\%*\%w},
-                       if the term is included in the optimization}
-\item{\code{elapsed_time}}{elapsed time recorded at every iteration}
-\item{\code{convergence}}{boolean flag to indicate whether or not the optimization converged}
+\item{\code{w}}{Optimal portfolio vector.}
+\item{\code{relative_risk_contribution}}{The relative risk contribution of every asset.}
+\item{\code{theta}}{Optimal value for theta (in case that it is part of
+                    the chosen formulation.)}
+\item{\code{obj_fun}}{Sequence of values of the objective function at each iteration.}
+\item{\code{risk_concentration}}{Risk concentration term of the portfolio \code{R(w)}.}
+\item{\code{mean_return}}{Expected return term of the portoflio \code{t(w)\%*\%mu},
+                          if the term is included in the optimization.}
+\item{\code{variance}}{Variance term of the portfolio \code{t(w)\%*\%Sigma\%*\%w},
+                       if the term is included in the optimization.}
+\item{\code{elapsed_time}}{Elapsed time recorded at every iteration.}
+\item{\code{convergence}}{Boolean flag to indicate whether or not the optimization converged.}
+\item{\code{is_feasible}}{Boolean flag to indicate whether or not the computed portfolio respects the linear constraints.}
 }
 \description{
 This function designs risk parity portfolios to equalize/distribute
@@ -102,15 +113,18 @@ constraints, as well as the inclusion of additional objectives like the
 expected return and overall variance. In short, this function solves the
 following problem:
 
-      \code{minimize R(w) - lmd_mu * t(w)\%*\%mu + lmd_var * t(w)\%*\%Sigma\%*\%w}
+      \code{minimize    R(w) - lmd_mu * t(w) \%*\% mu + lmd_var * t(w) \%*\% Sigma \%*\% w}
 
-      \code{subject to sum(w) = 1, w_lb <= w <= w_ub},
+      \code{subject to  sum(w) = 1, w_lb <= w <= w_ub},
+      \code{            Cmat \%*\% w = cvec, Dmat \%*\% w <= dvec},
 
 where \code{R(w)} denotes the risk concentration,
-\code{t(w)\%*\%mu} is the expected return, \code{t(w)\%*\%Sigma\%*\%w} is the
+\code{t(w) \%*\% mu} is the expected return, \code{t(w) \%*\% Sigma \%*\% w} is the
 overall variance, \code{lmd_mu} and \code{lmd_var} are the trade-off weights
-for the expected return and the variance terms, respectively, and \code{w_lb} and
-\code{w_ub} are the lower and upper bound vector values for the portfolio vector \code{w}.
+for the expected return and the variance terms, respectively, \code{w_lb} and
+\code{w_ub} are the lower and upper bound vector values for the portfolio vector \code{w},
+\code{Cmat \%*\% w = cvec} denotes arbitrary linear equality constrains, and
+\code{Dmat \%*\% w = dvec} denotes arbitrary linear inequality constrains.
 }
 \details{
 By default, the problem considered is the vanilla risk parity portfolio:
@@ -152,16 +166,16 @@ Sigma <- cov(V)
 res <- riskParityPortfolio(Sigma)
 names(res)
 #> [1] "w"                 "risk_contribution"
+
 res$w
 #> [1] 0.04142886 0.38873465 0.34916787 0.09124019 0.12942842
-res$risk_contribution
-#> [1] 0.007361995 0.007361995 0.007361995 0.007361995 0.007361995
-c(res$w * (Sigma \%*\% res$w))
-#> [1] 0.007361995 0.007361995 0.007361995 0.007361995 0.007361995
+
+res$relative_risk_contribution
+#> [1] 0.2 0.2 0.2 0.2 0.2
 
 # risk budggeting portfolio
 res <- riskParityPortfolio(Sigma, b = c(0.4, 0.4, 0.1, 0.05, 0.05))
-res$risk_contribution/sum(res$risk_contribution)
+res$relative_risk_contribution
 #> [1] 0.40 0.40 0.10 0.05 0.05
 
 }

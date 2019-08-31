@@ -3,7 +3,7 @@
 \docType{package}
 \name{riskParityPortfolio-package}
 \alias{riskParityPortfolio-package}
-\title{Package riskParityPortfolio}
+\title{riskParityPortfolio: Design of Risk Parity Portfolios}
 \description{
 Fast design of risk parity portfolios for financial investment.
 The goal of the risk parity portfolio formulation is to equalize or distribute
@@ -18,20 +18,16 @@ a detailed documentation and comparison, with several illustrative examples.
 }
 \section{Functions}{
 
-\code{\link{riskParityPortfolio}}
+\code{\link{riskParityPortfolio}}, \code{\link{barplotPortfolioRisk}}
 }
 
 \section{Help}{
 
 For a quick help see the README file:
-\href{https://CRAN.R-project.org/package=riskParityPortfolio/readme/README.html}{CRAN-README} and
 \href{https://github.com/dppalomar/riskParityPortfolio/blob/master/README.md}{GitHub-README}.
 
 For more details see the vignette:
-\href{https://CRAN.R-project.org/package=riskParityPortfolio/vignettes/RiskParityPortfolio.html}{CRAN-html-vignette},
-\href{https://CRAN.R-project.org/package=riskParityPortfolio/vignettes/RiskParityPortfolio-pdf.pdf}{CRAN-pdf-vignette},
-\href{https://raw.githack.com/dppalomar/riskParityPortfolio/master/vignettes/RiskParityPortfolio.html}{GitHub-html-vignette}, and
-\href{https://docs.google.com/viewer?url=https://github.com/dppalomar/riskParityPortfolio/raw/master/vignettes/RiskParityPortfolio-pdf.pdf}{GitHub-pdf-vignette}.
+\href{https://CRAN.R-project.org/package=riskParityPortfolio/vignettes/RiskParityPortfolio.html}{CRAN-vignette}.
 }
 
 \references{
