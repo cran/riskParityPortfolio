@@ -21,9 +21,9 @@ riskParityPortfolioSCA <- function(Sigma, w0, b = rep(1/nrow(Sigma), nrow(Sigma)
                                    Cmat = matrix(1, 1, nrow(Sigma)), cvec = c(1),
                                    Dmat = rbind(diag(nrow(Sigma)), -diag(nrow(Sigma))),
                                    dvec = c(w_ub, -w_lb),
-                                   formulation = c("rc-over-b-double-index",
+                                   formulation = c("rc-over-var vs b",
+                                                   "rc-over-b-double-index",
                                                    "rc-double-index",
-                                                   "rc-over-var vs b",
                                                    "rc-over-var",
                                                    "rc-over-sd vs b-times-sd",
                                                    "rc vs b-times-var",
@@ -229,7 +229,12 @@ riskParityPortfolioCyclicalSpinu <- function(Sigma, b = rep(1/nrow(Sigma), nrow(
                                              maxiter = 50, ftol = 1e-8) {
   w <- risk_parity_portfolio_ccd_spinu(Sigma, b, ftol, maxiter)
   w_Sigmaw <- c(w * (Sigma %*% w))
-  return(list(w = w, relative_risk_contribution = w_Sigmaw / sum(w_Sigmaw)))
+  return(list(
+              w = w,
+              relative_risk_contribution = w_Sigmaw / sum(w_Sigmaw),
+              obj_fun = obj_function_spinu(Sigma, w, b)
+        )
+  )
 }
 
 # minimize ||w - w0||^2

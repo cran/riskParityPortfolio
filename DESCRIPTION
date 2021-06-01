@@ -1,7 +1,7 @@
 Package: riskParityPortfolio
 Title: Design of Risk Parity Portfolios
-Version: 0.2.1
-Date: 2019-10-07
+Version: 0.2.2
+Date: 2021-05-31
 Description: Fast design of risk parity portfolios for financial investment.
     The goal of the risk parity portfolio formulation is to equalize or distribute
     the risk contributions of the different assets, which is missing if we simply
@@ -18,7 +18,7 @@ Description: Fast design of risk parity portfolios for financial investment.
     no. 19, pp. 5285-5300. <doi:10.1109/TSP.2015.2452219>.
     F. Spinu (2013), An Algorithm for Computing Risk Parity Weights.
     <doi:10.2139/ssrn.2297383>.
-    T. Griveau-Billion, J. Richard, and T. Roncalli (2013). A fast algorithm for computing 
+    T. Griveau-Billion, J. Richard, and T. Roncalli (2013). A fast algorithm for computing
     High-dimensional risk parity portfolios. <arXiv:1311.4057>.
 Authors@R: c(
   person("Ze", "Vinicius", role = "aut", email = "jvmirca@gmail.com"),
@@ -30,19 +30,17 @@ URL: https://CRAN.R-project.org/package=riskParityPortfolio,
         https://www.danielppalomar.com,
         https://doi.org/10.1109/TSP.2015.2452219
 BugReports: https://github.com/dppalomar/riskParityPortfolio/issues
-Depends:
-License: GPL-3 | file LICENSE
+License: GPL-3
 Encoding: UTF-8
-LazyData: true
 LinkingTo: Rcpp, RcppEigen
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 Imports: alabama, Matrix, nloptr, quadprog, Rcpp
-Suggests: knitr, ggplot2, numDeriv, pagedown, portfolioBacktest,
-        prettydoc, rmarkdown, R.rsp, testthat, viridisLite
+Suggests: knitr, ggplot2, numDeriv, portfolioBacktest, prettydoc,
+        rmarkdown, R.rsp, testthat, viridisLite
 VignetteBuilder: knitr, rmarkdown, R.rsp
 NeedsCompilation: yes
-Packaged: 2019-10-07 05:49:29 UTC; palomar
+Packaged: 2021-06-01 05:25:05 UTC; palomar
 Author: Ze Vinicius [aut],
   Daniel P. Palomar [cre, aut]
 Repository: CRAN
-Date/Publication: 2019-10-07 08:10:03 UTC
+Date/Publication: 2021-06-01 05:50:02 UTC
